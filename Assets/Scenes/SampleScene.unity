@@ -325,7 +325,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7379029576416668687, guid: 3a02ee08add9000499cf767ef6f22c06, type: 3}
       propertyPath: m_Name
-      value: "\u5927\u8FD0 (1)"
+      value: truck2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1116,7 +1116,7 @@ PrefabInstance:
       objectReference: {fileID: 1107720927}
     - target: {fileID: 5283569432731734906, guid: 5cf25dfd2ba23184a9f8a6eba1da5400, type: 3}
       propertyPath: m_Name
-      value: "\u98DE\u8F664"
+      value: fly4
       objectReference: {fileID: 0}
     - target: {fileID: 5765330199380858300, guid: 5cf25dfd2ba23184a9f8a6eba1da5400, type: 3}
       propertyPath: m_FlipX
@@ -4705,7 +4705,7 @@ PrefabInstance:
       objectReference: {fileID: 1180440233}
     - target: {fileID: 5283569432731734906, guid: 5cf25dfd2ba23184a9f8a6eba1da5400, type: 3}
       propertyPath: m_Name
-      value: "\u98DE\u8F662"
+      value: fly1
       objectReference: {fileID: 0}
     - target: {fileID: 5765330199380858300, guid: 5cf25dfd2ba23184a9f8a6eba1da5400, type: 3}
       propertyPath: m_FlipX
@@ -5745,7 +5745,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7379029576416668687, guid: 3a02ee08add9000499cf767ef6f22c06, type: 3}
       propertyPath: m_Name
-      value: "\u5927\u8FD0"
+      value: truck1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -5834,7 +5834,7 @@ PrefabInstance:
       objectReference: {fileID: 1420504069}
     - target: {fileID: 5283569432731734906, guid: 5cf25dfd2ba23184a9f8a6eba1da5400, type: 3}
       propertyPath: m_Name
-      value: "\u98DE\u8F665"
+      value: fly5
       objectReference: {fileID: 0}
     - target: {fileID: 5765330199380858300, guid: 5cf25dfd2ba23184a9f8a6eba1da5400, type: 3}
       propertyPath: m_FlipX
@@ -6188,7 +6188,7 @@ PrefabInstance:
       objectReference: {fileID: 682720021}
     - target: {fileID: 5283569432731734906, guid: 5cf25dfd2ba23184a9f8a6eba1da5400, type: 3}
       propertyPath: m_Name
-      value: "\u98DE\u8F663"
+      value: fly3
       objectReference: {fileID: 0}
     - target: {fileID: 6292743214601595706, guid: 5cf25dfd2ba23184a9f8a6eba1da5400, type: 3}
       propertyPath: m_LocalPosition.x
@@ -6245,7 +6245,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2067313688}
   m_Layer: 0
-  m_Name: "\u969C\u788D\u7269"
+  m_Name: cars
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6391,7 +6391,7 @@ PrefabInstance:
       objectReference: {fileID: 636927173}
     - target: {fileID: 5283569432731734906, guid: 5cf25dfd2ba23184a9f8a6eba1da5400, type: 3}
       propertyPath: m_Name
-      value: "\u98DE\u8F661"
+      value: car2
       objectReference: {fileID: 0}
     - target: {fileID: 6292743214601595706, guid: 5cf25dfd2ba23184a9f8a6eba1da5400, type: 3}
       propertyPath: m_LocalScale.x
@@ -6456,7 +6456,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 4182025961887085538, guid: 17bb5eb344c9d82479f7b82eb2989101, type: 3}
       propertyPath: m_Name
-      value: "\u5730\u677F"
+      value: floor
       objectReference: {fileID: 0}
     - target: {fileID: 9082787613453630873, guid: 17bb5eb344c9d82479f7b82eb2989101, type: 3}
       propertyPath: m_LocalScale.x
@@ -6593,7 +6593,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7335550188988060552, guid: 11029f90176b78c4486e569416d03520, type: 3}
       propertyPath: m_Name
-      value: "\u8F66"
+      value: car1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
