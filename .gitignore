@@ -1,29 +1,73 @@
-[Ll]ibrary/
-[Tt]emp/
-[Oo]bj/
-[Bb]uild/
-[Bb]uilds/
-[Ll]ogs/
-[Uu]ser[Ss]ettings/
+# =============== #
+# Unity 生成的文件 #
+# =============== #
+/[Ll]ibrary/
+/[Tt]emp/
+/[Oo]bj/
+/[Bb]uild/
+/[Bb]uilds/
+/[Ll]ogs/
+/[Uu]ser[Ss]ettings/
 
+# 内存捕获文件可能非常大且包含敏感数据
+/[Mm]emoryCaptures/
+
+# 录制文件可能非常大
+/[Rr]ecordings/
+
+# 自动生成的Jetbrains Rider插件
+/[Aa]ssets/Plugins/Editor/JetBrains*
+
+# ===================================== #
+# 构建与包文件 #
+# ===================================== #
+*.apk
+*.aab
+*.unitypackage
+*.app
+
+# ===================================== #
+# 开发环境与IDE文件 #
+# ===================================== #
+# Visual Studio
+.vs/
 *.csproj
-*.unityproj
 *.sln
 *.suo
-*.tmp
 *.user
 *.userprefs
+
+# Gradle
+.gradle/
+
+# 其他IDE
+.consulo/
+*.unityproj
 *.pidb
 *.booproj
 *.svd
+*.pdb
+*.mdb
+*.opendb
+*.VC.db
 
-.vs/
-.vscode/
-.idea/
-
+# ===================================== #
+# 其他需要忽略的文件 #
+# ===================================== #
+# Unity 3D生成的元文件（某些遗留文件）
 *.pidb.meta
-**/Assets/AssetStoreTools*
+*.pdb.meta
+*.mdb.meta
 
-# Unity3D generated meta files
-**/Assets/*.meta
-**/Assets/**/*.meta
+# Unity崩溃报告
+sysinfo.txt
+
+# Crashlytics生成的文件
+crashlytics-build.properties
+
+# 打包后的Addressables资源
+/[Aa]ssets/[Aa]ddressable[Aa]ssets[Dd]ata/*/*.bin*
+
+# 临时自动生成的Android资源
+/[Aa]ssets/[Ss]treamingAssets/aa.meta
+/[Aa]ssets/[Ss]treamingAssets/aa/*
