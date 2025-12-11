@@ -10,6 +10,14 @@ namespace ClearSky
         public float KickBoardMovePower = 15f;
         public float jumpPower = 20f; //Set Gravity Scale in Rigidbody2D Component to 5
 
+        // 冰面滑行效果参数
+        [Header("Ice Sliding Settings")]
+        public float acceleration = 15f; // 加速度
+        public float deceleration = 3f; // 减速度（摩擦力），值越小滑行越远
+        public float maxSpeed = 12f; // 最大速度
+        [Range(0.5f, 5f)]
+        public float slideFriction = 1.5f; // 滑行摩擦力，值越小滑行越远
+
         private Rigidbody2D rb;
         private Animator anim;
         Vector3 movement;
@@ -17,6 +25,9 @@ namespace ClearSky
         bool isJumping = false;
         private bool alive = true;
         private bool isKickboard = false;
+        
+        // 当前速度（用于滑行效果）
+        private Vector2 currentVelocity = Vector2.zero;
 
 
         // Start is called before the first frame update
@@ -63,51 +74,80 @@ namespace ClearSky
         {
             if (!isKickboard)
             {
-                Vector3 moveVelocity = Vector3.zero;
+                float inputX = Input.GetAxisRaw("Horizontal");
+                Vector2 targetVelocity = Vector2.zero;
                 anim.SetBool("isRun", false);
 
-
-                if (Input.GetAxisRaw("Horizontal") < 0)
+                // 根据输入计算目标速度
+                if (inputX < 0)
                 {
                     direction = -1;
-                    moveVelocity = Vector3.left;
-
+                    targetVelocity = Vector2.left * maxSpeed;
                     transform.localScale = new Vector3(direction, 1, 1);
                     if (!anim.GetBool("isJump"))
                         anim.SetBool("isRun", true);
-
                 }
-                if (Input.GetAxisRaw("Horizontal") > 0)
+                else if (inputX > 0)
                 {
                     direction = 1;
-                    moveVelocity = Vector3.right;
-
+                    targetVelocity = Vector2.right * maxSpeed;
                     transform.localScale = new Vector3(direction, 1, 1);
                     if (!anim.GetBool("isJump"))
                         anim.SetBool("isRun", true);
-
                 }
-                transform.position += moveVelocity * movePower * Time.deltaTime;
 
+                // 冰面滑行效果：平滑过渡到目标速度
+                if (inputX != 0)
+                {
+                    // 有输入时，加速到目标速度
+                    currentVelocity = Vector2.MoveTowards(currentVelocity, targetVelocity, acceleration * Time.deltaTime);
+                }
+                else
+                {
+                    // 无输入时，应用摩擦力逐渐减速（基于时间的衰减）
+                    // 使用MoveTowards确保平滑减速到零
+                    currentVelocity = Vector2.MoveTowards(currentVelocity, Vector2.zero, slideFriction * Time.deltaTime);
+                }
+                
+                // 滑行时保持跑步动画
+                if (currentVelocity.magnitude > 0.5f && !anim.GetBool("isJump"))
+                {
+                    anim.SetBool("isRun", true);
+                }
+
+                // 应用速度到位置
+                transform.position += new Vector3(currentVelocity.x, currentVelocity.y, 0) * Time.deltaTime;
             }
-            if (isKickboard)
+            else if (isKickboard)
             {
-                Vector3 moveVelocity = Vector3.zero;
-                if (Input.GetAxisRaw("Horizontal") < 0)
+                float inputX = Input.GetAxisRaw("Horizontal");
+                Vector2 targetVelocity = Vector2.zero;
+                
+                if (inputX < 0)
                 {
                     direction = -1;
-                    moveVelocity = Vector3.left;
-
+                    targetVelocity = Vector2.left * KickBoardMovePower;
                     transform.localScale = new Vector3(direction, 1, 1);
                 }
-                if (Input.GetAxisRaw("Horizontal") > 0)
+                else if (inputX > 0)
                 {
                     direction = 1;
-                    moveVelocity = Vector3.right;
-
+                    targetVelocity = Vector2.right * KickBoardMovePower;
                     transform.localScale = new Vector3(direction, 1, 1);
                 }
-                transform.position += moveVelocity * KickBoardMovePower * Time.deltaTime;
+
+                // 滑板模式也使用滑行效果，摩擦力更小滑得更远
+                if (inputX != 0)
+                {
+                    currentVelocity = Vector2.MoveTowards(currentVelocity, targetVelocity, acceleration * 0.8f * Time.deltaTime);
+                }
+                else
+                {
+                    // 滑板模式摩擦力更小，滑行距离更远
+                    currentVelocity = Vector2.MoveTowards(currentVelocity, Vector2.zero, slideFriction * 0.5f * Time.deltaTime);
+                }
+
+                transform.position += new Vector3(currentVelocity.x, currentVelocity.y, 0) * Time.deltaTime;
             }
         }
         void Jump()
