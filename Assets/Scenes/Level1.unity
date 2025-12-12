@@ -1030,6 +1030,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   CollegeStudent: {fileID: 1891362235}
+  offset: {x: 0, y: 3, z: 0}
+  smoothSpeed: 5
+  useSmoothDamp: 1
+  smoothTime: 0.3
+  useBoundary: 1
+  minX: -115
+  maxX: 103
+  minY: -24
+  maxY: 14
+  showBoundaryGizmos: 1
+  boundaryColor: {r: 0, g: 1, b: 0, a: 1}
+  cameraBoundsColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
 --- !u!1 &532069998
 GameObject:
   m_ObjectHideFlags: 0
