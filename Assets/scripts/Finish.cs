@@ -16,7 +16,7 @@ public class Finish : MonoBehaviour
     // Update is called once per frame
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if(collision.gameObject.name == "CollegeStudent" && !levelComleted)
+        if(collision.gameObject.name == "CollegeStudent Variant" && !levelComleted)
         {
             finishSound.Play();
             levelComleted = true;
