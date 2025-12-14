@@ -18,6 +18,14 @@ namespace ClearSky
         [Range(0.5f, 5f)]
         public float slideFriction = 1.5f; // 滑行摩擦力，值越小滑行越远
 
+        [Header("Death & Respawn Settings")]
+        [SerializeField] private bool useBoundaryDeath = true; // 是否启用边界死亡
+        [SerializeField] private float deathBoundaryMinX = -120f; // 死亡边界X最小值
+        [SerializeField] private float deathBoundaryMaxX = 110f;  // 死亡边界X最大值
+        [SerializeField] private float deathBoundaryMinY = -30f;  // 死亡边界Y最小值（掉落死亡）
+        [SerializeField] private float deathBoundaryMaxY = 50f;   // 死亡边界Y最大值
+        [SerializeField] private string enemyName = "Cop Variant"; // 敌人名称
+
         private Rigidbody2D rb;
         private Animator anim;
         Vector3 movement;
@@ -28,6 +36,9 @@ namespace ClearSky
         
         // 当前速度（用于滑行效果）
         private Vector2 currentVelocity = Vector2.zero;
+        
+        // 起始位置（用于重生）
+        private Vector3 spawnPosition;
 
 
         // Start is called before the first frame update
@@ -35,6 +46,8 @@ namespace ClearSky
         {
             rb = GetComponent<Rigidbody2D>();
             anim = GetComponent<Animator>();
+            // 记录起始位置
+            spawnPosition = transform.position;
         }
 
         private void Update()
@@ -48,7 +61,7 @@ namespace ClearSky
                 Jump();
                 KickBoard();
                 Run();
-
+                CheckBoundaryDeath();
             }
         }
         private void OnTriggerEnter2D(Collider2D other)
@@ -192,11 +205,72 @@ namespace ClearSky
         {
             if (Input.GetKeyDown(KeyCode.Alpha3))
             {
-                isKickboard = false;
-                anim.SetBool("isKickBoard", false);
-                anim.SetTrigger("die");
-                alive = false;
+                TriggerDeath();
             }
+        }
+
+        /// <summary>
+        /// 检查角色是否超出边界，超出则死亡
+        /// </summary>
+        void CheckBoundaryDeath()
+        {
+            if (!useBoundaryDeath) return;
+            
+            Vector3 pos = transform.position;
+            if (pos.x < deathBoundaryMinX || pos.x > deathBoundaryMaxX ||
+                pos.y < deathBoundaryMinY || pos.y > deathBoundaryMaxY)
+            {
+                TriggerDeath();
+            }
+        }
+
+        /// <summary>
+        /// 碰撞检测 - 与敌人碰撞时死亡
+        /// </summary>
+        private void OnCollisionEnter2D(Collision2D collision)
+        {
+            // 使用 StartsWith 检测所有以 enemyName 开头的敌人（如 Cop Variant、Cop Variant(1) 等）
+            if (collision.gameObject.name.StartsWith(enemyName) && alive)
+            {
+                TriggerDeath();
+            }
+        }
+
+        /// <summary>
+        /// 触发死亡并重生
+        /// </summary>
+        void TriggerDeath()
+        {
+            if (!alive) return;
+            
+            alive = false;
+            isKickboard = false;
+            anim.SetBool("isKickBoard", false);
+            
+            // 直接重生到起始位置，不播放死亡动画
+            Respawn();
+        }
+
+        /// <summary>
+        /// 重生到起始位置
+        /// </summary>
+        void Respawn()
+        {
+            // 传送到起始位置
+            transform.position = spawnPosition;
+            
+            // 重置速度
+            currentVelocity = Vector2.zero;
+            if (rb != null)
+            {
+                rb.velocity = Vector2.zero;
+            }
+            
+            // 恢复状态
+            alive = true;
+            isKickboard = false;
+            anim.SetBool("isKickBoard", false);
+            anim.SetTrigger("idle");
         }
         void Restart()
         {
